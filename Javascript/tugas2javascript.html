@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Pegawai</title>
+
+    <!-- favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+    <link rel="manifest" href="favicon/site.webmanifest">
+
+    <!-- bootstrap css -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+
+    <!-- css custom -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        body {
+            background-color: #0f172a;
+            font-family: 'Inter', sans-serif;
+        }
+
+        table * {
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 class="text-light mt-5 text-center">Data Pegawai 1 s/d 100</h2>
+
+        <div class="table-responsive my-5">
+            <table class="table table-bordered table-striped">
+                <thead bgcolor="salmon">
+                    <tr>
+                        <th>No</th>
+                        <th>Name</th>
+                        <th>Position</th>
+                        <th>Religion</th>
+                        <th>Basic Salary</th>
+                        <th>Positional Allowance</th>
+                        <th>Health Benefits</th>
+                        <th>Gross Salary</th>
+                        <th>Professional Zakat</th>
+                        <th>Take Home Pay</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <script>
+                        // format rupiah
+                        const formatRp = (e) => {
+                            return new Intl.NumberFormat("id-ID").format(e);
+                        };
+
+                        // men-deklarasikan variable jabatan dan gapok
+                        let jabatan = "Manager";
+                        let gapok = 0;
+
+                        for (let numbers = 1; numbers <= 100; numbers++) {
+                            // menggunakan if multi kondisi untuk menentukan jabatan
+                            if (numbers > 75 && numbers <= 100) jabatan = "Staff";
+                            else if (numbers > 50 && numbers <= 75) jabatan = "Super Visor";
+                            else if (numbers > 25 && numbers <= 50) jabatan = "Asisten Manager";
+                            else jabatan = "Manager";
+
+                            // menggunakan switch case untuk menentukan gapok
+                            switch (jabatan) {
+                                case "Staff": gapok = 4000000; break;
+                                case "Super Visor": gapok = 7000000; break;
+                                case "Asisten Manager": gapok = 10000000; break;
+                                case "Manager": gapok = 15000000; break;
+                                default: gapok = 15000000; break;
+                            }
+
+                            // logic perhitungan tunjab, tunkes, gator dan menentukan agama sesuai bil ganjil dan genap serta bgcolor nya
+                            let tunjab = gapok * 0.2;
+                            let tunkes = gapok * 0.1;
+                            let gator = gapok + tunjab + tunkes;
+
+                            let agama = "Muslim";
+                            numbers % 2 == 1 ? agama : agama = "Non Muslim";
+                            const warna = agama === "Muslim" ? "#fde047" : "#67e8f9";
+
+                            // kondisi jika pegawai ber-agama 'muslim' dan gaji kotor nya min 7 juta, ada zakat profesi sebesar 2,5% dari gator
+                            // jika pegawai ber-agama 'non muslim' dan pegawai 'muslim' tetapi gator nya kurang dari 7 juta, zakat profesi nya 0
+                            let zaprof = 0;
+                            if (agama === "Muslim" && gator >= 7000000) zaprof = gator * 0.025;
+                            else zaprof = 0;
+
+                            // take home pay
+                            const takeHomePay = gator - zaprof;
+
+                            // cetak syntax html melalui js
+                            document.write(`
+                                <tr bgcolor=${warna}>
+                                    <td class="text-center">${numbers}</td>
+                                    <td>Pegawai${numbers}</td>
+                                    <td>${jabatan}</td>
+                                    <td>${agama}</td>
+                                    <td class="text-end">Rp. ${formatRp(gapok)}</td>
+                                    <td class="text-end">Rp. ${formatRp(tunjab)}</td>
+                                    <td class="text-end">Rp. ${formatRp(tunkes)}</td>
+                                    <td class="text-end">Rp. ${formatRp(gator)}</td>
+                                    <td class="text-end">Rp. ${formatRp(zaprof)}</td>
+                                    <td class="text-end">Rp. ${formatRp(takeHomePay)}</td>
+                                </tr>
+                            `)
+                        }
+                    </script>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- bootstrap js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous">
+    </script>
+</body>
+</html>
