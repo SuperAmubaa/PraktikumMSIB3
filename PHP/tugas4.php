@@ -80,7 +80,6 @@
          * function untuk menentukan zakat profesi
          * jika agama nya islam dan dan gaji kotor nya minimal 6 juta, maka
          * akan membayar zakat 2,5% dari gaji kotor nya, jika tidak sesuai syarat maka tidak membayar zakat.
-         * 
          * lalu mengembalikan nilai dari variable zaprof
          */
         public function setZakatProfesi() {
